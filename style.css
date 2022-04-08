@@ -13,11 +13,34 @@ body {
 
 h1 {
 	text-align: center;
-	font-size: 54px;
+	font-size: 60px;
 	font-weight: bolder;
 	color: yellow;
+	text-shadow: 1px 2px 3px blue;
 	-webkit-text-stroke: blue;
 	-webkit-text-stroke-width: 1px;
+}
+
+.form-search {
+	display: flex;
+	justify-content: center;
+	margin: auto;
+	width: 80%;
+	height: 30px;
+	
+	
+}
+
+.form-search > input {
+	border: none;
+	width: 80%;
+	height: 30px;
+	outline: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bolder;
+	font-size: 20px;
+	color: blue;
+	
 }
 
 .pokedex {
@@ -134,6 +157,14 @@ h1 {
 	height: 180px;
 	position: relative;
 	z-index: 2;
+}
+
+.hidden {
+	display: none;
+}
+
+.dflex {
+	display: block;
 }
 
 @keyframes bounce {

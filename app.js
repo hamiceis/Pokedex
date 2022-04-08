@@ -1,5 +1,7 @@
 
 const pokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+const formSearch = document.querySelector('[data-js="form-search"]')
+const ul = document.querySelector('[data-js="pokedex"]')
 
 
 // gerou 150 pokemons em JSON.
@@ -23,9 +25,10 @@ const generateHTML = pokemons => pokemons.reduce((acc,{ name, id, types }) => {
 
 
 const inserirPokemonPage = pokemons => {
-    const ul = document.querySelector('[data-js="pokedex"]')
     ul.innerHTML = pokemons
 }
+
+
 
 const fetchPokemon = async () => {
 
@@ -37,5 +40,45 @@ const fetchPokemon = async () => {
     inserirPokemonPage(dataPokemons)
 
 }
+
+
+//filtrar os pokemons
+const filterPokemons = (listaPokemons, inputValue, checkValues) => listaPokemons
+    .filter(pokemon => {
+        const check = pokemon.textContent.toLowerCase().includes(inputValue)
+        return checkValues ? check : !check
+    })
+//Manipular as classes para adicionar e remover
+const ManipularClasses = (listaPokemons, classAdd, classRemove) => {
+    listaPokemons.forEach(pokemon => {
+        pokemon.classList.add(classAdd)
+        pokemon.classList.remove(classRemove)
+    })
+}    
+
+//Lógica para mostrar o pokemon 
+const showPokemon = (inputValue, listaPokemons) => {
+    const show = filterPokemons(listaPokemons,inputValue, true)
+    ManipularClasses(show,'dflex','hidden' )
+}
+//Lógica para esconder os pokemons
+const hidePokemon = (inputValue, listaPokemons) => {
+    const hidden = filterPokemons(listaPokemons, inputValue, false)
+    ManipularClasses(hidden,'hidden','dflex')
+
+}
+
+
+// execução das funções acima
+
+formSearch.addEventListener('input', event => {
+    event.preventDefault()
+    const inputValue = event.target.value.trim().toLowerCase()
+    const listaPokemons = Array.from(ul.children)
+
+    hidePokemon(inputValue, listaPokemons)
+    showPokemon(inputValue, listaPokemons)
+        
+})
 
 fetchPokemon()
